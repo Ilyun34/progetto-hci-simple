@@ -2,12 +2,155 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Progetto HCI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f6f5f1;
+      --surface: #ffffff;
+      --text: #1b1b1f;
+      --muted: #6b6b76;
+      --border: #e4e2dc;
+      --accent: #3b5bdb;
+      --accent-soft: #e7ecfd;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0f1115;
+        --surface: #171a21;
+        --text: #eceef3;
+        --muted: #9199a8;
+        --border: #262b35;
+        --accent: #7c9bff;
+        --accent-soft: #1d2540;
+      }
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Inter", system-ui, sans-serif;
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    main {
+      width: 100%;
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 72px 20px 48px;
+      flex: 1;
+    }
+    .eyebrow {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 0.8rem;
+      color: var(--accent);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    h1 {
+      font-size: clamp(2.2rem, 6vw, 3.4rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin: 12px 0 16px;
+    }
+    .lead {
+      color: var(--muted);
+      font-size: 1.1rem;
+      max-width: 560px;
+    }
+    .tag {
+      display: inline-block;
+      margin-top: 24px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-weight: 500;
+      font-size: 0.9rem;
+    }
+    h2 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--muted);
+      margin: 64px 0 16px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 16px;
+    }
+    .card {
+      display: block;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 22px;
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+    a.card:hover {
+      transform: translateY(-3px);
+      border-color: var(--accent);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    }
+    .card .code {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 1.6rem;
+      color: var(--accent);
+    }
+    .card h3 { font-size: 1.05rem; margin: 8px 0 4px; }
+    .card p { color: var(--muted); font-size: 0.92rem; }
+    .card .arrow { margin-top: 14px; font-weight: 500; color: var(--accent); font-size: 0.9rem; }
+    .card.soon { opacity: 0.5; border-style: dashed; }
+    footer {
+      text-align: center;
+      padding: 24px 20px;
+      color: var(--muted);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--border);
+    }
+  </style>
 </head>
 <body>
-  <h1>Progetto HCI</h1>
-  <ul>
-    <li><a href="C1/">C1</a></li>
-  </ul>
+  <main>
+    <div class="eyebrow">Fondamenti di HCI · Politecnico di Milano</div>
+    <h1>Progetto HCI</h1>
+    <p class="lead">Le consegne del nostro progetto per il corso di Fondamenti di Human-Computer Interaction, A.A. 2026/27.</p>
+    <span class="tag">Tema: Vivere con l'AI</span>
+
+    <h2>Consegne</h2>
+    <div class="grid" id="consegne"></div>
+  </main>
+
+  <footer>Progetto HCI · 2026/27</footer>
+
+  <script>
+    // Per aggiungere una consegna: aggiungi una riga qui sotto.
+    // Metti pronta: false per mostrarla come "in arrivo".
+    const consegne = [
+      { codice: "C1", titolo: "Consegna 1", descrizione: "Prima consegna del progetto.", link: "C1/", pronta: true },
+      { codice: "C2", titolo: "Consegna 2", descrizione: "In arrivo.", link: "C2/", pronta: false },
+    ];
+
+    const grid = document.getElementById("consegne");
+    consegne.forEach(c => {
+      const el = document.createElement(c.pronta ? "a" : "div");
+      el.className = "card" + (c.pronta ? "" : " soon");
+      if (c.pronta) el.href = c.link;
+      el.innerHTML = `
+        <div class="code">${c.codice}</div>
+        <h3>${c.titolo}</h3>
+        <p>${c.descrizione}</p>
+        ${c.pronta ? '<div class="arrow">Apri →</div>' : ''}
+      `;
+      grid.appendChild(el);
+    });
+  </script>
 </body>
 </html>
