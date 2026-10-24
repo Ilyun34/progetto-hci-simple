@@ -1,0 +1,77 @@
+---
+layout: base
+---
+{% assign info = site.data.consegne | where: "codice", page.codice | first %}
+{% assign dir = "/" | append: page.codice | append: "/" %}
+{% include slide.html codice=page.codice %}
+    <nav class="crumb"><a href="../">← Tutte le consegne</a></nav>
+    <div class="eyebrow">Consegna {{ page.codice | remove: "C" }}</div>
+    <h1>{{ info.titolo }}</h1>
+    <p class="lead">{{ page.lead | default: info.descrizione }}</p>
+
+    <h2>Slide</h2>
+{% if slide %}
+    {% assign url = slide | uri_escape %}
+    <iframe class="viewer" src="{{ url }}" title="Slide della consegna {{ page.codice }}"></iframe>
+    <div class="actions">
+      <a class="btn" href="{{ url }}" target="_blank" rel="noopener">Apri il PDF</a>
+      <a class="btn ghost" href="{{ url }}" download>Scarica</a>
+    </div>
+{% else %}
+    <ul class="list"><li><div class="row"><span class="tbd">Slide in preparazione{% if info.scadenza %} (consegna entro il {{ info.scadenza }}){% endif %}</span></div></li></ul>
+{% endif %}
+
+{% if info.sezioni %}
+    <h2>Contenuti</h2>
+    <ul class="list">
+{% for s in info.sezioni %}
+      <li><div class="row"><span>{{ forloop.index }} · {{ s.titolo }}</span><span class="meta">{{ s.dettaglio }}</span></div></li>
+{% endfor %}
+    </ul>
+{% endif %}
+
+{% comment %}Tutti gli altri file della cartella, raggruppati per sottocartella.{% endcomment %}
+{% assign gruppi = "" %}
+{% for f in site.static_files %}
+  {% assign inizio = f.path | slice: 0, dir.size %}
+  {% if inizio == dir %}
+    {% assign resto = f.path | remove_first: dir %}
+    {% if resto != slide %}
+      {% if resto contains "/" %}{% assign g = resto | split: "/" | first %}{% else %}{% assign g = "Altri file" %}{% endif %}
+      {% assign gruppi = gruppi | append: g | append: "|" %}
+    {% endif %}
+  {% endif %}
+{% endfor %}
+{% assign gruppi = gruppi | split: "|" | uniq %}
+
+{% for g in gruppi %}
+    <h2>{{ g }}</h2>
+    <ul class="list">
+{% for f in site.static_files %}
+  {% assign inizio = f.path | slice: 0, dir.size %}
+  {% if inizio == dir %}
+    {% assign resto = f.path | remove_first: dir %}
+    {% if resto contains "/" %}{% assign fg = resto | split: "/" | first %}{% else %}{% assign fg = "Altri file" %}{% endif %}
+    {% if fg == g and resto != slide %}
+      {% assign ext = f.extname | downcase | remove: "." %}
+      {% case ext %}
+        {% when "jpg", "jpeg", "png", "gif", "webp", "heic" %}{% assign tipo = "Foto" %}
+        {% when "mp4", "mov", "webm", "m4v" %}{% assign tipo = "Video" %}
+        {% when "mp3", "m4a", "wav" %}{% assign tipo = "Audio" %}
+        {% else %}{% assign tipo = ext | upcase %}
+      {% endcase %}
+      {% assign nome = page.etichette[f.basename] | default: f.basename %}
+      {% assign meta = page.categorie[f.basename] %}
+      <li><a href="{{ resto | uri_escape }}" target="_blank" rel="noopener"><span>{{ nome }}</span><span class="meta">{% if meta %}{{ meta }} · {% endif %}{{ tipo }}</span></a></li>
+    {% endif %}
+  {% endif %}
+{% endfor %}
+    </ul>
+{% endfor %}
+{% if gruppi.size == 0 %}
+    <h2>Materiali</h2>
+    <ul class="list"><li><div class="row"><span class="tbd">Foto, video e materiali verranno elencati qui appena caricati nella cartella {{ page.codice }}.</span></div></li></ul>
+{% endif %}
+
+{{ content }}
+    <p class="note">I moduli di consenso firmati e le risposte individuali al sondaggio contengono dati personali e non sono pubblicati sul sito. Nelle slide sono riportati solo dati aggregati.</p>

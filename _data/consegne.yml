@@ -1,0 +1,21 @@
+# Elenco delle consegne mostrate in home.
+# Per una nuova consegna: aggiungi un blocco qui sotto e crea la cartella (es. C3/) con un index.html
+# che contiene solo le righe di intestazione, come C2/index.html.
+- codice: C1
+  titolo: Needfinding
+  descrizione: Dominio, target, sondaggio e 5 interviste (4 utenti e un esperto).
+
+- codice: C2
+  titolo: Raffinamento e focus
+  descrizione: Attività con gli utenti, bisogni, personas e scenari, idea e value proposition.
+  scadenza: 26/10/2026
+  sezioni:
+    - titolo: Introduzione
+      dettaglio: Team e dominio aggiornato
+    - titolo: Nuove attività di needfinding
+      dettaglio: Format, utenti, analisi tematica
+    - titolo: Bisogni degli utenti
+      dettaglio: Brainstorming, personas, scenari
+    - titolo: Soluzioni e requisiti
+      dettaglio: Idea scelta
+    - titolo: Nome e value proposition

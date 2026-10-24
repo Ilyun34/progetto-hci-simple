@@ -1,0 +1,11 @@
+{% comment %}Restituisce in "slide" il primo PDF caricato direttamente nella cartella della consegna (non nelle sottocartelle).{% endcomment %}
+{% assign dir = "/" | append: include.codice | append: "/" %}
+{% assign slide = nil %}
+{% for f in site.static_files %}
+  {% assign inizio = f.path | slice: 0, dir.size %}
+  {% if inizio == dir %}
+    {% assign resto = f.path | remove_first: dir %}
+    {% assign ext = f.extname | downcase %}
+    {% unless resto contains "/" %}{% if ext == ".pdf" and slide == nil %}{% assign slide = resto %}{% endif %}{% endunless %}
+  {% endif %}
+{% endfor %}

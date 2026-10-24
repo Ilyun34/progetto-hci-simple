@@ -1,15 +1,7 @@
-<!DOCTYPE html>
-<html lang="it">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Very SIMPLE Project</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/style.css">
-</head>
-<body>
-  <main>
+---
+layout: base
+title: Very SIMPLE Project
+---
     <div class="eyebrow">Fondamenti di HCI · Politecnico di Milano</div>
     <h1>Very SIMPLE Project</h1>
     <p class="lead">Privacy e AI: efficienza contro sicurezza. Studiamo come studenti e giovani adulti gestiscono i dati personali, propri e degli altri, quando li inseriscono nei chatbot.</p>
@@ -25,32 +17,14 @@
     </div>
 
     <h2>Consegne</h2>
-    <div class="grid" id="consegne"></div>
-  </main>
-
-  <footer>Gruppo SIMPLE · Fondamenti di HCI · A.A. 2026/27 · Docenti M. Matera e L. Piro</footer>
-
-  <script>
-    // Per aggiungere una consegna: aggiungi una riga qui sotto.
-    // Metti pronta: false per mostrarla come "in arrivo".
-    const consegne = [
-      { codice: "C1", titolo: "Needfinding", descrizione: "Dominio, target, sondaggio e 5 interviste (4 utenti e un esperto).", link: "C1/", pronta: true },
-      { codice: "C2", titolo: "Raffinamento e focus", descrizione: "Attività con gli utenti, bisogni, personas e scenari, idea e value proposition. In preparazione.", link: "C2/", pronta: true },
-    ];
-
-    const grid = document.getElementById("consegne");
-    consegne.forEach(c => {
-      const el = document.createElement(c.pronta ? "a" : "div");
-      el.className = "card" + (c.pronta ? "" : " soon");
-      if (c.pronta) el.href = c.link;
-      el.innerHTML = `
-        <div class="code">${c.codice}</div>
-        <h3>${c.titolo}</h3>
-        <p>${c.descrizione}</p>
-        ${c.pronta ? '<div class="arrow">Apri →</div>' : ''}
-      `;
-      grid.appendChild(el);
-    });
-  </script>
-</body>
-</html>
+    <div class="grid">
+{% for c in site.data.consegne %}
+  {% include slide.html codice=c.codice %}
+      <a class="card" href="{{ c.codice }}/">
+        <div class="code">{{ c.codice }}</div>
+        <h3>{{ c.titolo }}</h3>
+        <p>{{ c.descrizione }}{% unless slide %} In preparazione.{% endunless %}</p>
+        <div class="arrow">Apri →</div>
+      </a>
+{% endfor %}
+    </div>

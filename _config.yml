@@ -1,3 +1,5 @@
-# Le cartelle che iniziano con "_" non vengono pubblicate da GitHub Pages: _riservato resta solo nel repository.
+# Le cartelle che iniziano con "_" non vengono pubblicate da GitHub Pages.
 exclude:
   - _riservato
+  - README.md
+  - "**/README.md"

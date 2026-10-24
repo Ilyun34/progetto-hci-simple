@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ page.title }}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% if page.codice %}../{% endif %}assets/style.css">
+</head>
+<body>
+  <main>
+{{ content }}
+  </main>
+
+  <footer>Gruppo SIMPLE · Fondamenti di HCI · A.A. 2026/27 · Docenti M. Matera e L. Piro</footer>
+</body>
+</html>
