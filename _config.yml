@@ -1,0 +1,3 @@
+# Le cartelle che iniziano con "_" non vengono pubblicate da GitHub Pages: _riservato resta solo nel repository.
+exclude:
+  - _riservato
