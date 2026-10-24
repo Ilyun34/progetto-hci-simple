@@ -1,5 +1,11 @@
-# Le cartelle che iniziano con "_" non vengono pubblicate da GitHub Pages.
+# I file tecnici del sito sono nella cartella sito/ (istruzioni in sito/README.md).
+layouts_dir: sito/_layouts
+includes_dir: sito/_includes
+data_dir: sito/_data
+
+# Le cartelle che iniziano con "_" non vengono pubblicate: _riservato resta solo nel repository.
 exclude:
   - _riservato
   - README.md
   - "**/README.md"
+  - sito/README.md
