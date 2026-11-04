@@ -30,6 +30,15 @@ layout: base
     </ul>
 {% endif %}
 
+{% if page.link %}
+    <h2>Link</h2>
+    <ul class="list">
+{% for l in page.link %}
+      <li><a href="{{ l.url }}" target="_blank" rel="noopener"><span>{{ l.titolo }}</span><span class="meta">{{ l.tipo | default: "Link" }}</span></a></li>
+{% endfor %}
+    </ul>
+{% endif %}
+
 {% comment %}Tutti gli altri file della cartella, raggruppati per sottocartella.{% endcomment %}
 {% assign gruppi = "" %}
 {% for f in site.static_files %}

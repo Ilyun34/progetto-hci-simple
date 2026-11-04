@@ -19,3 +19,21 @@
     - titolo: Soluzioni e requisiti
       dettaglio: Idea scelta
     - titolo: Nome e value proposition
+
+- codice: C3
+  titolo: Task, storyboard e primi prototipi
+  descrizione: Tre task con analisi gerarchica, storyboard, modalità di interazione e due prototipi lo-fi in Figma.
+  scadenza: 16/11/2026
+  sezioni:
+    - titolo: Introduzione
+      dettaglio: Team, value proposition, problema e soluzione
+    - titolo: Task e storyboard
+      dettaglio: Task semplice, moderato e complesso (HTA)
+    - titolo: Esplorazione delle modalità
+      dettaglio: Alternative considerate e le due scelte
+    - titolo: Prototipo 1
+      dettaglio: Flusso di interazione e legame con i task
+    - titolo: Prototipo 2
+      dettaglio: Flusso di interazione e legame con i task
+    - titolo: Scelta
+      dettaglio: Pro, contro e motivazione
